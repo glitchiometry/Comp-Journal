@@ -1,0 +1,35 @@
+### ABOUT ###
+
+In short, this is an attempt at continuing to do scientific research in a meaningful way, 
+until I hopefully find my way back to a broadly promising research path. I was a grad 
+student in Chris Rycroft's group between 2013 and 2019, and decided in 2019 that I needed 
+time away from my program in order to reevaluate my core competencies and, to some extent, 
+whether I was really qualified to pursue a Ph.D. I've since discovered that doing any 
+kind of meaningful science outside of academia is actually kind of hard; apart from the 
+obvious limitations (fewer opportunities for discussions, limited access to journal 
+articles, library resources, computational infrastructure) there are the somewhat more 
+subtle challenges associated with not only maintaining academic integrity, but, to some 
+extent, creating or willing it into existence. It's possible to stumble into exciting 
+questions or results on your own, but without any sort of solid institutional 
+epistemological context, a lot of work is needed to get anyone else to care, and even 
+then, one must live with the possibility that someone else (possibly another 'independent 
+researcher', or even a complete stranger) will claim all the major results. The main 
+difficulty in the world of Open Science, Citizen Science and their like, I believe, isn't 
+outreach or getting people to care; it's in teaching (or maybe even allowing) amateur 
+scientists to really hold themselves accountable. That is, giving a reason to keep 
+accurate and meaningcul logs of what it is that one plans to do and accomplish on a day 
+to day basis. Without this, Open Science isn't really "science" per se, as much as a 
+source of "inspired hypotheses" (or worse.) The disruptive potential is sadly as real as 
+the Prime Directive of Starfleet is fiction. Science is about more than answers to 
+questions: how those answers are reached is equally if not more valuable in the long run, 
+because we need to know what actually works and what doesn't, what behaviors are 
+tolerable and which are potentially worth avoiding.
+
+Github is in some ways a "least action" solution to this potential problem; it can 
+function as a somewhat robust ledger, albeit with the vulnerabilities of any data that 
+is communicated exclusively over the internet. It's far from perfect, but it beats 
+anything that I could possibly come up with this year. My goal is to experiment with 
+recording as much of my research process as possible, without compromising clarity or 
+wasting too much time trying to say things perfectly. Really holding myself accountable 
+requires someone else caring enough to read what I write, and their job really ought to 
+be as tolerable as possible (and not just because I might end up in a similar position.)
