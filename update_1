@@ -1,0 +1,86 @@
+4/9/2021 - 4/13/2021
+
+I'm balancing my time between planning my next research phase and finishing up my current project 
+on colloidal self-assembly.  I've discovered through developing my own (basic) simulation software
+that computational results can be unexpectedly difficult to verify or check (without seeking input
+from third parties.) There is a certain art to making sure that a simulation does what one expects it 
+to do, beyond simply visualizing the results and corroborating them with theory and experiment.  
+
+Part of planning future research involves learning new things.  I'm currently brushing up on 
+algebraic geometry (mostly to appreciate a new 'perspective' on mathematics, and partly in order 
+to see how that perspective might extend to other topics, and hopefully in order to be able to teach.)
+I am also revisiting a topic that interested me as an undergraduate: open quantum systems, and conditions 
+under which these thermalize/decohere or fail to do so. I'm especially interested in the question of 
+whether and/or the extent to which the dynamics of a system can be inferred from the evolution of the 
+density matrix of a subsystem.
+I'll also say that I've been interested in topics that could potentially be relevant in urban forestry 
+settings: understanding or even just measuring the impact of human activity on nearby ecosystems (when
+these even can be said to exist.)
+
+Other potential research directions:
+- Understanding the 'constitutive behavior' of complex biopolymers (RNA, proteins, etc.)
+    The goals of this project would be primarily educational, being focused primarily on a somewhat 
+    open set of questions instead of the narrower scope of informatics based approaches to structure
+    prediction.  I'm mainly interested in what a 'sparse' description of a biopolymer would look like,
+    somewhere between the base pair or amino-acid sequence and the fully explicit molecular structure.
+    The base sequence has enough information to predict the resulting structure within a particular 
+    environment.  Presumably the genotype-phenotype or structure-function map depends on ambient 
+    variables, however; temperature, pressure, pH, the proximity of other complex biopolymers, 
+    volume constraints, and more.  
+- Scattering of ultra low frequency radiation in the interstellar medium.  This has interested me 
+    for a few months.  The interstellar medium is something that I don't understand especially well,
+    and which seems to be somewhat difficult to observe directly.  Why not try to simulate it, and 
+    infer what it might be like?  How might slight electrostatic charge imbalances smoothen out over
+    large distances?  What kind of large scale structure might emerge through purely gravitational 
+    interactions?  How would ultra-long-wavelength (e.g. ~1au) radiation interact with this structure 
+    over even longer length scales (e.g. ~1lyr)?
+- Instabilities in solar wind.  This is tangentially related to the ultra-low-frequency scattering
+    project.  I'm somewhat interested in potential interplay between gravitational and magnetic effects,
+    as well as how far the solar wind extends beyond our solar system (probes show a somewhat precipitous 
+    drop beyond a certain distance, but it isn't clear to me why this effect might not be anisotropic.)
+- Quantum chemistry.  Admittedly, this would probably be more for fun than anything else.  I'm interested
+    in learning more about reduced descriptions of molecules in terms of open quantum systems, whether 
+    these can be derived from first principles, or if not, how difficult it would be to 'learn' them.
+
+Prospective technical projects:
+- Understanding the effect of hydrodynamic interactions in colloidal self-assembly for colloids in close
+    proximity (or near rigid surfaces.)  Hydrodynamic interactions appear to be relatively well-modeled 
+    in dilute suspensions of colloids, but I have struggled to find articles on their effects at high 
+    density (where a suspension might transition from Newtonian to highly non-Newtonian behavior.)  
+    Accurate expressions or simple approximations for the diffusion tensor at high density could be useful 
+    in understanding what kinds of colloidal assemblies are feasible.
+- Accurate expressions of Asakura-Oosawa depletion interactions between anisotropic (or 'aspherical') 
+    colloids.  This is motivated by a suggested project that Chris Rycroft, my graduate advisor, offered
+    while I was at Harvard.  It is worth investigating for many reasons, including that a vast array of 
+    self-assembly behaviors can be achieved with anisotropic features simply through depletion forces, which
+    might be further relevant in any context where anisotropic colloids exist at various scales and at 
+    high density (e.g. most biological settings.)  The challenge is that the question is theoretically messy,
+    and highly involved even with a purely numerical approach.  An appropriately general representation of 
+    anisotropic colloids is necessary.  An efficient representation is needed of a 3-component function 
+    (force) over a 6-dimensional configuration space (relative displacement & rotation.)  Colloids with 
+    'singular' features such as cusps or ridges may need additional structure to represent their interactions.
+
+Crazy/amateur projects:
+- Engineering related topics.  Obviously sustainability is important.  This would largely involve 
+    personal research (probably of an educational type) on topics that are relevant to solar, wind, and 
+    geothermal energy.  I'm somewhat interested in ways that architecture can be adapted to achieve certain
+    living conditions passively (e.g. cooler/warmer interiors in the appropriate season), and or allow
+    for less wasted time and energy.
+- Recyclablity of various products (e.g. plastics).  Plastics can be hard to recycle economically.  One 
+    usage I can foresee is devising a way to convert clean plastic resin into something fungible like filament
+    for a 3D printer.  Another would be to minimize processing, and use the abundance of plastic in various 
+    forms (e.g. thin sheets, which are somewhat ubiquitous) to our advantage.  Maybe sheet plastic could be
+    used to create origami-inspired structures, with minimal thermoforming.
+- Impressions in biological systems.  Over the past few decades there has been a 'surge' of 
+    interest in the idea of urban woodlands.  The idea (to my knowledge) is to find ways of building into 
+    natural environments, or 'renaturalizing' urban ones, that involve minimal disturbance to those environments.
+    Urban environments tend to have somewhat intricate design layouts, with information carefully placed so 
+    that people can function in their day to day lives; it seems to me that biological ecosystems are 
+    probably similar.  Hence, building into woodlands or another natural space (without essentially clear-cutting) 
+    could require first mapping out how to avoid obscuring essential signals and environmental cues.
+
+There are other topics that I'll try to mention as they come to mind.  Right now I'm doing stuff that's a bit more basic:
+- Rebuilding a simulation (in C, possibly C++ eventually) for greater adaptability.
+- Implementing several custom numerical routines (e.g. mesh generation, differential geometry, 
+    data structures for computational physics, etc.)
+- Pondering the dearth of journalism in my current neck of the woods.
