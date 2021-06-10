@@ -1,0 +1,58 @@
+6/5/2021-6/10/2021
+
+Progress update:
+- I have started reading Ahrens' book, which appears to contain some nuggets of wisdom.  
+I'm especially intrigued by the 'slip box' idea, attributed to (Niklas) Luhmann.  Obviously 
+this technique isn't a panacea, but it could potentially help in getting through slow periods.
+- I have also started to appreciate the real, human value of the difference between conveyable 
+truths and truths which might be suggested. (This work isn't about me, although it probably helps
+to be as thorough as possible.)
+- The last observation is relevant only insofar as meaningful inferences can be drawn:
+where writing must be indirect or is by necessity, it should be as direct as possible.
+Beyond this, one might ask how the 'shape' of conveyed meaning adjusts to the specificity of the author.  
+How much detail should a research journal entry include in order to fulfill its essential purpose?  
+How much of the scientific process can be inferred from a piecemeal account?  At what point
+in gradually convolving indirectness is truth at risk of being obscured?
+- These questions are somewhat less relevant (or their relevance less apparent) when doing research 
+in a university or campus setting, where collaboration is generally easier and less remote, and 
+publishing institutions have a more immediate presence.
+
+6/8/2021
+I have been in the process of re-writing my simulation of colloidal particles in a more general 
+and hopefully more efficient framework, although at the cost of adding complexity.  The new 
+simulation is written in the C language (owing mainly to its simplicity, and because I am somewhat
+acclimated to it after working through the CS50 exercises.) I decided that I would try to accommodate
+colloidal particles with a broad array of sizes, and allow for the possibility of modeling hydrodynamic 
+interactions with a general many-body diffusion operator.  The simulation will also allow for a larger 
+variety of user-specified interactions between particles (e.g. specific binding energies to model 
+DNA-coated colloids, or to account for more general DLVO interactions, or modified electrostatics 
+between conducting colloids.)  
+
+As of today, 6/10/2021, the organization of the simulation is still in flux to some extent.  Mainly I 
+need to decide whether certain components ought to be part of the 'simulation' data structure, or 
+managed independently (e.g. for greater flexibility.)  The fundamentals are present: a neighbor list,
+interpolation to replace 'thin' short range AO-style interactions with simplified approximations, and 
+a bunch of helper structures to simplify the implementation. Beyond that, I need to decide whether to 
+add 'deluxe' features that might improve performance and/or accuracy at the risk of causing additional 
+delays.  For example, it would be nice to be able to simulate hard-sphere effects in overdamped Brownian
+dynamics simulations, but this is difficult to do accurately.  One approach might be to ignore stochastic
+increments of certain particles if these cause the particles to overlap.  Without some kind of additional
+structure to keep track of stochastic forces transmitted between neighboring particles, however, this 
+simple algorithm will produce unphysical aggregates (or at the very least, aggregates that are not 
+internally consistent with the simple "hardish-core" repulsive interactions that the algorithm is meant 
+to approximate.)  So the ability to simulate hard-sphere like behavior would require an additional 
+structure (beyond the no-overlap constraint or approximation thereof) to keep track of 'momentum' which 
+may be transmitted through dense ordered aggregates of sticky tangent spheres for example.  Owing to this
+extra level of complexity, I have opted to forgo hard-sphere behavior for the time being.  In addition,
+one might consider whether to include multiple time-steps, allowing for slower particles (e.g. the largest
+spheres) to be moved less frequently than the faster/smaller ones, or use multiple sets of box-lists 
+with a range of resolutions when constructing neighbor lists, or to find a way of updating the neighbor 
+lists of particles at a frequency that depends on the mobility of each particle/neighbor (as opposed to 
+applying the update time-scale required for the fastest particle to all.)  I'm sure that most of these
+questions have been addressed before, and so now I'm in the process of looking them up.
+
+(My interest in simulating multi-component colloidal systems is mainly to explore additional self-assembly
+paradigms involving special values of size ratios of particles, and also to explore how colloidal glasses
+form (or do not form) in various geometries and under various conditions.)
+
+[to be continued...]
