@@ -1,0 +1,67 @@
+Theme: partitioning MD simulation regions for efficient neighbor-list construction
+
+- Using several partitions simultaneously (with varying resolution) may improve performance
+of simulations with both 'fast' and 'slow' degrees of freedom (as well as 'large' and 'small'),
+by allowing neighborlists to be updated on a per-particle basis.
+- In simulations where particles are concentrated on a lower dimensional subset (e.g. adsorption)
+with curvature, additional improvements may be achieved by using nonlinear partitioning functions
+(for a somewhat simple example, partitioning in polar coordinates instead of rectangular.)
+
+Advantages of "multi-scale partitioning": 
+- It is usually more efficient to maintain separate box lists for large and small particles, with
+box sizes of order the particle radii. (c.f. Justification 1 below.)
+
+Implementing non-linear partitions:
+- The benefits of these are probably marginal: one challenge is overcoming the incredibly convenient
+even spacing (and regularity) property of ordinary box partitioning without introducing too much 
+additional complexity (speaking of complexity...)
+
+Adaptive methods: consider instead an approach where space is partitioned dynamically according to 
+what structure emerges in a simulation. Accommodating tunable nonlinear collective coordinates might 
+then be advantageous not only for improving the efficiency of simulations, but also for recognizing 
+'relevant parameters' that may emerge in various scaling limits. This could also develop into a dynamical 
+coarse-graining method; for example, clusters or bound states could be replaced with 'blobs' that 
+incorporate only the 'softest'/floppiest modes of deformation.
+Requires:
+- Anticipating what structure might emerge (e.g. clusters of colloidal particles or molecular
+complexes, crystalline structure, surface adsorption, etc.)
+- Understanding events under which that structure might change (e.g. desorption, unbinding, etc.)
+- Understanding how the presence of certain structure makes certain calculations unnecessary.
+
+Justification 1: Multi-scale partitioning:
+- Suppose a simulation has two particle types, one of radius R and another of radius r << R. The
+smaller particles undergo spatial diffusion with a rate roughly sqrt(R/r) times faster than the 
+larger particles, and with a single box-list, the larger particles require searching a volume of 
+order 8R^3, the smaller particles a volume of order (R+r)^3 ~ R^3 at every neighbor list update. 
+As the smaller particles explore more rapidly than the larger ones, it may be sensible to reduce the 
+rate of explicit updates of larger neighbor lists commensurately, or even to maintain two or three 
+sets of neighbor lists (corresponding either to r-r, R-R, and r-R, in the case of three, or to r-(r,R), 
+and R-R [although this would require using asymmetric graphs, which have their own complications].) 
+With three neighbor lists (or one for every pair of particle varieties, or per 'mobility region') 
+let us suppose that the r-r list must be maintained at a rate 2sqrt(R/r) more frequent than the R-R list, 
+and the r-R at a rate sqrt(R/r) faster (when R >> r.)  If space is partitioned into boxes of size 
+'e', and if the (local) number densities of small and large particles are 'n' and 'm' respectively*, 
+the complexity of updating a single r-r neighbor list is of order 8r^3(1 / e + c * n), an r-R neighbor list 
+of order R^3(1 / e + c * m) (looping over 'small' particles) and an R-R neighbor list of order 8R^3(1 / e + c * m).
+Combined with the complexity of sorting N small and M large particles into the volume elements, 
+the total complexity per unit time is of order 
+(c'N + c''M) + N[ 8r^3 (1 / e + c * n) + R^3 (1 / e + c * m)] * sqrt(R / r) + M 8R^3 (1 / e + c * m), e < r,
+c'N + c''M + N[ e (1 / e + c * n) + R^3 (1 / e + c * m)] * sqrt(R / r) + M 8 R^3 (1 / e + c * m), e > 8r^3, with a minimum
+at N [c n - R^3 / e^2] sqrt(R/r) = 8 M R^3 / e^2 for e > 8r^3, or 
+  e^2 = R^3 (8 (M / N) sqrt(r / R) + 1) / (c n), 
+which has one positive solution bounded above by R^(3/2) sqrt(2 / (c n)) if M < N and r << R
+and below by R^(3/2) / sqrt(c n), corresponding to a cell that contains of order sqrt(n R^3)
+'small' particles (which, in spite of the square root, can be quite large.) 
+If instead two box lists are maintained, one for large particles and another for small ones, with box sizes 
+of e_R and e_r respectively, with e_R >> e_r ~ e, the complexity may be reduced slightly to 
+c'N + c''M + N[ 8e_r^3 (1 / e_r + c * n) + R^3 (1 / e_R + c * m)] sqrt(R / r) + M 8R^3 (1 / e_R + c * m), r < e_r, R > e_R,
+allowing both e_r and e_R to be adjusted independently to optimal values of order r^3 and R^3 respectively, resulting
+in complexity of order c'N + c''M + N[ 1 + c * n * 8r^3 + 1 / 8 + c * m * R^3] sqrt(R / r) + M (1 + c * m * 8 R^3).
+
+
+
+*A more precise estimate may include separate parameters n_rr, m_rR, and m_RR, allowing for the 
+different microscopic environments of small and large particles.  In general, aggregation or clustering
+will cause 'n' and 'm' to differ from N/V and M/V, but these parameters may be regarded as as-yet-unknown
+'non-trivial constants.'
+
