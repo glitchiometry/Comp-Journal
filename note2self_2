@@ -1,0 +1,62 @@
+This note pertains to Brownian dynamics simulations that incorporate a 
+Grand Canonical Monte Carlo step to maintain constant chemical potential
+(as implemented by Oberholzer et al 1997 and Im et al 2000, Solano et al 
+2016, etc.)  One of these papers ("Grand canonical Brownian dynamics 
+simulation of colloidal adsorption" by Oberholzer et al) is behind a paywall 
+that is a bit higher than what my current budget allows, so for the time
+being I will either need to infer its contents from related work or beg
+a kindly patron to cover the $35 (?) fee.
+
+The subject is somewhat boring: how to ensure thermodynamic consistency of 
+a simulation in which GCMC particles are added and removed only when the 
+neighbor list is updated, or at time intervals that are optimized for 
+performance and convergence to relevant physical configurations.
+
+In my current simulation, a GCMC step is performed at every time step,
+resulting in at most one new particle added every time step and, in steady 
+state (or ideally equilibrium) conditions a commensurately low rate at which 
+particles are removed, though possibly several at once.  I believe this can 
+be improved tremendously in various ways.
+
+At present the main bottlekneck is in having to perform a Metropolis-
+Hastings test at every time step for every particle in the 'far' region
+(where particle number isn't conserved.)  This is made even more prohibitively
+expensive if a separate list is not maintained of particles that reside in 
+the far region, but if the simulation involves looping over the complete 
+list of particles, which may include a substantial number that are 
+concentrated in a low-energy region of interest (e.g. near a surface or a 
+growing colloidal aggregate.)  Beyond this, an additional bottle-kneck arises
+from performing the test at every time step, with a relatively small probabiliy 
+of the 'work' performed (in the calculation of a random number) producing any 
+effect whatsoever.  A more subtle bottlekneck may arise in simulating Brownian
+dynamics in the 'far' region instead of a localized Monte Carlo routine with 
+Gaussian transition kernel (allowing 'instantaneous' moves into a buffer zone
+between the 'near' and 'far' regions.)
+
+Hence, a more efficient approach may involve:
+- Maintaining a list of 'dynamical' (Brownian dynamics) and 'non-dynamical' (GCMC)
+particles.
+- Updating the state of GCMC particles every N time steps instead of every time step.
+- In each update of the set of GCMC particles, 
+  - Drawing a Poisson distributed number 'N_a' for the number of proposed additional 
+  particles.
+  - If each of the 'N_f' particles in the far region may be tested independently for
+  removal with probability 'p', then the total number of tested particles 'N_t' is 
+  distributed according to a binomial, which may be approximated by a Gaussian with 
+  mean 'pN_f' when 'N_f' is large. 
+  (The probabilities or rates that are used in the above steps determine the chemical 
+  potential.)
+  - A standard GC Metropolis-Hastings test is performed for each proposed GC: when 
+  adding particles, 'N_a' steps are performed in sequence to avoid generating unphysical
+  configurations (the thermodynamic consistency of this needs to be checked.) When 
+  removing particles, a test need be performed only when particles are in close proximity
+  (when they might form a 'bound state' or cluster.)
+  - A standard constant-N M-H step is made for each particle after the GC M-H step, with
+  a Gaussian transition kernel (which may involve a diffusion constant that differs from 
+  the physical Stokes-Einstein value or that of the 'near' region, and is chosen to 
+  accommodate the geometry of the 'far' region with respect to the 'near' region, or 
+  more importantly, to match the diffusive transport kinetics expected from coupling to 
+  a large reservoir of particles (which may be momentarily locally depleted by the 
+  presence of a binding substrate.)
+  - The time between consecutive updates can be tuned in order to more accurately model 
+  kinetics and to some extent improve performance (though only with extreme care.)
