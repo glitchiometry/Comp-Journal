@@ -1,0 +1,11 @@
+11/27/2022
+
+I'm returning to this after a somewhat longer-than-expected hiatus.
+Today I'm interested in exploring the dynamics of pendula that are attached to rotors,
+specifically the small-angle oscillations about steady state orbits. The point of this
+is mainly to dust off my classical dynamics intuition, but also to allow the possibility
+that there is more to learn from this class of examples.  Eventually, I would like to 
+consider how the centrifugal force gradient influences the dynamics of extended rigid bodies,
+but I thought I would start with small point masses for simplicity. (It might also be interesting
+to look at how the dynamics changes when the rotor/centrifuge is tilted at an angle w.r.t. 
+an external gravitational field.)
